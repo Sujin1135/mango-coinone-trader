@@ -11,6 +11,6 @@ class CoinoneReqTestCase(unittest.TestCase):
         payload = {"access_token": ACCESS_TOKEN}
         req = CoinoneReq()
 
-        sut = req.get_post_response(action='v2/account/balance', payload=payload)
+        sut = req.post(action='v2/account/balance', payload=payload)
 
         self.assertEqual(sut['result'], 'success')

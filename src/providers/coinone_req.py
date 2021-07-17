@@ -19,7 +19,7 @@ class CoinoneReq:
         signature = hmac.new(bytes(SECRET_KEY, 'utf-8'), encoded_payload, hashlib.sha512)
         return signature.hexdigest()
 
-    def get_post_response(self, action: str, payload: dict):
+    def post(self, action: str, payload: dict):
         url = '{}/{}'.format(API_URL, action)
 
         encoded_payload = self.__get_encoded_payload(payload)

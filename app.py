@@ -12,7 +12,7 @@ def hello_world():
 
     req = CoinoneReq()
 
-    return req.get_post_response(action='v2/account/balance', payload=payload)
+    return req.post(action='v2/account/balance', payload=payload)
 
 
 if __name__ == '__main__':
