@@ -16,3 +16,13 @@ def _filter_available(balance: dict):
 def get_my_balance():
     payload = {"access_token": ACCESS_TOKEN}
     return _filter_available(req.post(action='v2/account/balance', payload=payload))
+
+
+def get_limit_buy(price: float, qty: float, currency: str):
+    payload = {
+        "access_token": ACCESS_TOKEN,
+        "price": price,
+        "qty": qty,
+        "currency": currency,
+    }
+    return req.post(action='v2/order/limit_sell', payload=payload)
