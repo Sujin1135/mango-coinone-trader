@@ -8,6 +8,8 @@ from config import SECRET_KEY, API_URL
 
 
 class CoinoneReq:
+
+
     def __get_encoded_payload(self, payload: dict):
         payload['nonce'] = int(time.time() * 1000)
 
