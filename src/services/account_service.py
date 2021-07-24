@@ -18,7 +18,7 @@ def get_my_balance():
     return _filter_available(req.post(action='v2/account/balance', payload=payload))
 
 
-def get_limit_buy(price: float, qty: float, currency: str):
+def get_limit_sell(price: float, qty: float, currency: str):
     payload = {
         "access_token": ACCESS_TOKEN,
         "price": price,
@@ -26,3 +26,11 @@ def get_limit_buy(price: float, qty: float, currency: str):
         "currency": currency,
     }
     return req.post(action='v2/order/limit_sell', payload=payload)
+
+
+def get_limit_order(currency: str):
+    payload = {
+        "access_token": ACCESS_TOKEN,
+        "currency": currency,
+    }
+    return req.post(action='v2/order/limit_orders', payload=payload)

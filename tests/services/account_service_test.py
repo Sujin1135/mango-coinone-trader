@@ -1,5 +1,5 @@
 import unittest
-from src.services.account_service import get_my_balance, get_limit_buy
+from src.services.account_service import get_my_balance, get_limit_sell, get_limit_order
 
 
 class AccountServiceTestCase(unittest.TestCase):
@@ -10,6 +10,11 @@ class AccountServiceTestCase(unittest.TestCase):
             self.assertTrue(float(d['balance']) > 0)
 
     def test_get_limit_sell(self):
-        sut = get_limit_buy(35000000, 0.002, 'BTC')
+        sut = get_limit_sell(35000000, 0.001, 'BTC')
 
         self.assertTrue(len(sut['result']) > 0)
+
+    def test_get_limit_order(self):
+        sut = get_limit_order('BTC')
+
+        self.assertTrue(sut['result'] == 'success')
