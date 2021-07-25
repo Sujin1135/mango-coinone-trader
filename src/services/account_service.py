@@ -34,3 +34,18 @@ def get_limit_order(currency: str):
         "currency": currency,
     }
     return req.post(action='v2/order/limit_orders', payload=payload)
+
+
+def get_krw_transaction_history():
+    payload = {
+        "access_token": ACCESS_TOKEN
+    }
+    return req.post(action='v2/transaction/krw/history', payload=payload)
+
+
+def get_coin_transaction_history(currency: str):
+    payload = {
+        "access_token": ACCESS_TOKEN,
+        "currency": currency
+    }
+    return req.post(action='v2/transaction/history', payload=payload)
