@@ -33,14 +33,14 @@ def get_limit_order(currency: str):
         "access_token": ACCESS_TOKEN,
         "currency": currency,
     }
-    return req.post(action='v2/order/limit_orders', payload=payload)
+    return req.post(action='v2/order/limit_orders', payload=payload)['limitOrders']
 
 
 def get_krw_transaction_history():
     payload = {
         "access_token": ACCESS_TOKEN
     }
-    return req.post(action='v2/transaction/krw/history', payload=payload)
+    return req.post(action='v2/transaction/krw/history', payload=payload)['krwHistory']
 
 
 def get_coin_transaction_history(currency: str):
@@ -48,4 +48,20 @@ def get_coin_transaction_history(currency: str):
         "access_token": ACCESS_TOKEN,
         "currency": currency
     }
-    return req.post(action='v2/transaction/history', payload=payload)
+    return req.post(action='v2/transaction/history', payload=payload)['transactions']
+
+
+def _filter_available_deposit(deposits: dict):
+    return list(
+            map(
+                lambda k : {k: deposits[k]},
+                filter(lambda k : deposits[k] is not None, deposits.keys())
+            )
+        )
+
+
+def get_deposit_address():
+    payload = {
+        "access_token": ACCESS_TOKEN
+    }
+    return _filter_available_deposit(req.post(action='v2/account/deposit_address', payload=payload)['walletAddress'])
