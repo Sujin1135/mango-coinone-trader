@@ -1,5 +1,4 @@
 import pytest
-from parameterized import parameterized
 from src.services.account_service import get_my_balance, get_limit_sell, get_limit_order, \
     get_krw_transaction_history, get_coin_transaction_history
 
