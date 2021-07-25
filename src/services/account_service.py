@@ -1,5 +1,4 @@
 from src.providers.coinone_req import CoinoneReq
-from config import ACCESS_TOKEN
 
 req = CoinoneReq()
 
@@ -14,13 +13,11 @@ def _filter_available(balance: dict):
 
 
 def get_my_balance():
-    payload = {"access_token": ACCESS_TOKEN}
-    return _filter_available(req.post(action='v2/account/balance', payload=payload))
+    return _filter_available(req.post(action='v2/account/balance'))
 
 
 def get_limit_sell(price: float, qty: float, currency: str):
     payload = {
-        "access_token": ACCESS_TOKEN,
         "price": price,
         "qty": qty,
         "currency": currency,
@@ -30,22 +27,17 @@ def get_limit_sell(price: float, qty: float, currency: str):
 
 def get_limit_order(currency: str):
     payload = {
-        "access_token": ACCESS_TOKEN,
         "currency": currency,
     }
     return req.post(action='v2/order/limit_orders', payload=payload)['limitOrders']
 
 
 def get_krw_transaction_history():
-    payload = {
-        "access_token": ACCESS_TOKEN
-    }
-    return req.post(action='v2/transaction/krw/history', payload=payload)['krwHistory']
+    return req.post(action='v2/transaction/krw/history')['krwHistory']
 
 
 def get_coin_transaction_history(currency: str):
     payload = {
-        "access_token": ACCESS_TOKEN,
         "currency": currency
     }
     return req.post(action='v2/transaction/history', payload=payload)['transactions']
@@ -61,7 +53,4 @@ def _filter_available_deposit(deposits: dict):
 
 
 def get_deposit_address():
-    payload = {
-        "access_token": ACCESS_TOKEN
-    }
-    return _filter_available_deposit(req.post(action='v2/account/deposit_address', payload=payload)['walletAddress'])
+    return _filter_available_deposit(req.post(action='v2/account/deposit_address')['walletAddress'])

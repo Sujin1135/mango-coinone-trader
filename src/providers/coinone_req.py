@@ -4,6 +4,7 @@ import json
 import base64
 import time
 import hmac
+from config import ACCESS_TOKEN
 from datetime import datetime
 from config import SECRET_KEY, API_URL
 
@@ -30,8 +31,9 @@ class CoinoneReq:
     def generate_nonce(self):
         return datetime.datetime.now().timestamp()
 
-    def post(self, action: str, payload: dict):
+    def post(self, action: str, payload={}):
         url = '{}/{}'.format(API_URL, action)
+        payload['access_token'] = ACCESS_TOKEN
 
         encoded_payload = self._get_encoded_payload(payload)
         headers = self._get_headers(encoded_payload)
