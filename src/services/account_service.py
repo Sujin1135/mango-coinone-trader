@@ -3,13 +3,21 @@ from src.providers.coinone_req import CoinoneReq
 req = CoinoneReq()
 
 
+def _get_available_balance_by_keys(keys: [], origin_balance: dict):
+    result = {}
+
+    for k in keys:
+        result[k] = origin_balance[k]
+
+    return result
+
+
 def _filter_available(balance: dict):
-    return list(
-        map(
-            lambda k : balance[k],
-            filter(lambda k : 'avail' in balance[k] and float(balance[k]['avail']) > 0.0, balance.keys()),
-        )
+    available_keys = list(
+        filter(lambda k: 'avail' in balance[k] and float(balance[k]['avail']) > 0.0, balance.keys()),
     )
+
+    return _get_available_balance_by_keys(available_keys, balance)
 
 
 def get_my_balance():
