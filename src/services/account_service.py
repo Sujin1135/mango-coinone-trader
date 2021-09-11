@@ -33,7 +33,7 @@ def sell(price: float, qty: float, currency: str):
     return req.post(action='v2/order/limit_sell', payload=payload)
 
 
-def buy(currency: str):
+def get_orders(currency: str):
     payload = {
         "currency": currency,
     }

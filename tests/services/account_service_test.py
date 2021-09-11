@@ -1,5 +1,5 @@
 import pytest
-from src.services.account_service import get_my_balance, sell, buy, \
+from src.services.account_service import get_my_balance, sell, get_orders, \
     get_krw_transaction_history, get_coin_transaction_history, get_deposit_address
 
 
@@ -16,8 +16,8 @@ def test_sell():
     assert len(sut['result']) > 0
 
 
-def test_buy():
-    sut = buy('BTC')
+def test_get_orders():
+    sut = get_orders('BTC')
 
     assert sut is not None
 
