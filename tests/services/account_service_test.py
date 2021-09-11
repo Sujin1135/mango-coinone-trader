@@ -1,5 +1,5 @@
 import pytest
-from src.services.account_service import get_my_balance, get_limit_sell, get_limit_order, \
+from src.services.account_service import get_my_balance, sell, buy, \
     get_krw_transaction_history, get_coin_transaction_history, get_deposit_address
 
 
@@ -10,14 +10,14 @@ def test_get_my_balance():
         assert float(d['balance']) > 0
 
 
-def test_get_limit_sell():
-    sut = get_limit_sell(35000000, 0.001, 'BTC')
+def test_sell():
+    sut = sell(35000000, 0.001, 'BTC')
 
     assert len(sut['result']) > 0
 
 
-def test_get_limit_order():
-    sut = get_limit_order('BTC')
+def test_buy():
+    sut = buy('BTC')
 
     assert sut is not None
 
