@@ -61,6 +61,7 @@ def test_sell_eth_little():
     assert sut['result'] == "success"
 
 
+# TODO: 바로 매도가 되지 않을만한 가격을 얻어서 매도 요청을 하도록 수정
 def test_cancel_sell():
     price = 4071000
     qty = 0.0015
