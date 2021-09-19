@@ -1,6 +1,7 @@
 import pytest
 from src.services.account_service import get_my_balance, sell, get_orders, \
-    get_krw_transaction_history, get_coin_transaction_history, get_deposit_address
+    get_krw_transaction_history, get_coin_transaction_history, get_deposit_address, get_my_krw, \
+    buy, cancel_buy, cancel_sell
 
 
 def test_get_my_balance():
@@ -8,6 +9,13 @@ def test_get_my_balance():
 
     for d in sut:
         assert float(d['balance']) > 0
+
+
+def test_get_my_krw():
+    sut = get_my_krw()
+
+    assert 'avail' in sut
+    assert 'balance' in sut
 
 
 def test_sell():
@@ -45,3 +53,20 @@ def test_get_my_deposit_address():
     sut = get_deposit_address()
 
     assert sut is not None
+
+
+def test_sell_eth_little():
+    sut = sell(4071000, 0.015, 'ETH')
+
+    assert sut['result'] == "success"
+
+
+def test_cancel_sell():
+    price = 4071000
+    qty = 0.0015
+    currency = 'ETH'
+    result = sell(price, qty, currency)
+    order_id = result['orderId']
+
+    sut = cancel_sell(order_id, price, qty, currency)
+    assert sut["result"] == "success"
