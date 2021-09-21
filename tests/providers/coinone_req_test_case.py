@@ -1,6 +1,6 @@
 import unittest
 from config import ACCESS_TOKEN
-from api.providers.coinone_req import CoinoneReq
+from app.providers.coinone_req import CoinoneReq
 
 
 class CoinoneReqTestCase(unittest.TestCase):
