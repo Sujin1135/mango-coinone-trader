@@ -1,5 +1,5 @@
-from src.providers.coinone_req import CoinoneReq
-from src.enums.behavior import Behavior
+from api.providers.coinone_req import CoinoneReq
+from api.enums.behavior import Behavior
 
 req = CoinoneReq()
 

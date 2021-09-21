@@ -1,5 +1,5 @@
 import pytest
-from src.services.account_service import get_my_balance, sell, get_orders, \
+from api.services.account_service import get_my_balance, sell, get_orders, \
     get_krw_transaction_history, get_coin_transaction_history, get_deposit_address, get_my_krw, \
     buy, cancel_buy, cancel_sell, get_market_price_cur
 
