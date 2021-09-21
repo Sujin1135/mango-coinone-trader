@@ -1,7 +1,7 @@
 import pytest
 from src.services.account_service import get_my_balance, sell, get_orders, \
     get_krw_transaction_history, get_coin_transaction_history, get_deposit_address, get_my_krw, \
-    buy, cancel_buy, cancel_sell
+    buy, cancel_buy, cancel_sell, get_market_price_cur
 
 
 def test_get_my_balance():
@@ -82,4 +82,11 @@ def test_cancel_buy():
     order_id = result['orderId']
 
     sut = cancel_buy(order_id, price, qty, currency)
+    assert sut["result"] == "success"
+
+
+@pytest.mark.parametrize("currency", ['BTC', 'ETH', 'XRP'])
+def test_get_market_currency_price_currently(currency: str):
+    sut = get_market_price_cur(currency)
+
     assert sut["result"] == "success"

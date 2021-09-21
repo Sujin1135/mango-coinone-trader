@@ -95,3 +95,7 @@ def _filter_available_deposit(deposits: dict):
 
 def get_deposit_address():
     return _filter_available_deposit(req.post(action='v2/account/deposit_address')['walletAddress'])
+
+
+def get_market_price_cur(currency: str):
+    return req.get(action='ticker?currency={}'.format(currency))

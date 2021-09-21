@@ -31,13 +31,17 @@ class CoinoneReq:
     def generate_nonce(self):
         return datetime.datetime.now().timestamp()
 
-    def post(self, action: str, payload={}):
-        url = '{}/{}'.format(API_URL, action)
-        payload['access_token'] = ACCESS_TOKEN
+    def gen_url(self, action: str):
+        return '{}/{}'.format(API_URL, action)
 
+    def post(self, action: str, payload={}):
+        payload['access_token'] = ACCESS_TOKEN
         encoded_payload = self._get_encoded_payload(payload)
         headers = self._get_headers(encoded_payload)
+        response = requests.post(self.gen_url(action), headers=headers, data=encoded_payload)
 
-        response = requests.post(url, headers=headers, data=encoded_payload)
+        return json.loads(response.content)
 
+    def get(self, action: str):
+        response = requests.get(self.gen_url(action))
         return json.loads(response.content)
