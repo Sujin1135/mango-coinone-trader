@@ -1,5 +1,4 @@
 from app.providers.coinone_req import CoinoneReq
-from app.enums.behavior import Behavior
 
 req = CoinoneReq()
 
@@ -32,43 +31,6 @@ def get_my_krw():
     return req.post(action="v2/account/balance")["krw"]
 
 
-def sell(price: float, qty: float, currency: str):
-    payload = {
-        "price": price,
-        "qty": qty,
-        "currency": currency,
-    }
-    return req.post(action="v2/order/limit_sell", payload=payload)
-
-
-def buy(price: float, qty: float, currency: str):
-    payload = {
-        "price": price,
-        "qty": qty,
-        "currency": currency,
-    }
-    return req.post(action="v2/order/limit_buy", payload=payload)
-
-
-def _cancel(behavior: Behavior, order_id: str, price: float, qty: float, currency: str):
-    payload = {
-        "order_id": order_id,
-        "is_ask": behavior.value,
-        "price": price,
-        "qty": qty,
-        "currency": currency,
-    }
-    return req.post(action="v2/order/cancel", payload=payload)
-
-
-def cancel_buy(order_id: str, price: float, qty: float, currency: str):
-    return _cancel(Behavior.BUY, order_id, price, qty, currency)
-
-
-def cancel_sell(order_id: str, price: float, qty: float, currency: str):
-    return _cancel(Behavior.SELL, order_id, price, qty, currency)
-
-
 def get_orders(currency: str):
     payload = {
         "currency": currency,
@@ -98,7 +60,3 @@ def get_deposit_address():
     return _filter_available_deposit(
         req.post(action="v2/account/deposit_address")["walletAddress"]
     )
-
-
-def get_market_price_cur(currency: str):
-    return req.get(action="ticker?currency={}".format(currency))
