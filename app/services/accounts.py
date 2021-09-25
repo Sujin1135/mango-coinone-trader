@@ -32,9 +32,7 @@ def get_my_krw():
 
 
 def get_orders(currency: str):
-    payload = {
-        "currency": currency,
-    }
+    payload = {"currency": currency}
     return req.post(action="v2/order/limit_orders", payload=payload)["limitOrders"]
 
 
